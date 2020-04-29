@@ -1,0 +1,47 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/rajdhani_semibold</item>
+    </style>
+    <style name="NumberBtnStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorButtonText</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/rajdhani_bold</item>
+        <item name="android:background">@drawable/btn_bg</item>
+        <item name="android:clickable">true</item>
+    </style>
+    <style name="GstBtnStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:gravity">center</item>
+        <item name="android:onClick">gstButton</item>
+        <item name="android:fontFamily">@font/rajdhani_bold</item>
+        <item name="android:background">@drawable/btn_bg</item>
+    </style>
+    <style name="OperatorBtnStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/btn_bg</item>
+        <item name="android:tint">@color/colorPrimaryDark</item>
+    </style>
+
+</resources>
