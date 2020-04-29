@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         btnZero.setOnClickListener { inputValue("0", true) }
         btnDoubleZero.setOnClickListener {
             val text = num
-//            val text = tv_input.text.toString()
             if(text !="0" && (text.last().isDigit() || text.last() == '.') && !text.contains('='))
                 inputValue("00", true)
             else
@@ -45,7 +44,6 @@ class MainActivity : AppCompatActivity() {
         }
         btnPoint.setOnClickListener {
             val text = num
-//            val text = tv_input.text.toString()
             if(!dotEnabled) {
                 dotEnabled = true
                 if(text != "0" && text.last().isDigit() && !text.contains('='))
@@ -61,10 +59,8 @@ class MainActivity : AppCompatActivity() {
         btnMultiply.setOnClickListener { inputValue("× ", false) }
         btnDivide.setOnClickListener { inputValue("÷ ", false) }
         btnPercentage.setOnClickListener {
-//            if(!tv_input.text.first().isDigit() && !isEqual && tv_input.text.last() != ' '){
             if(!num.first().isDigit() && !isEqual && num.last() != ' '){
                 val exp = num.split(" ")
-//                val exp = tv_input.text.split(" ")
                 var perc = result*(exp[1].toDouble()/100)
                 when(exp[0]){
                     "+" -> result += perc
@@ -78,11 +74,8 @@ class MainActivity : AppCompatActivity() {
                         result /= perc
                     }
                 }
-//                num = "= ${result.format()}"
-//                total = num
                 total = "= ${result.format()}"
-                tv_result.append("\n${num}% = $perc\n$total")
-//                tv_result.append("\n${tv_input.text}% = $perc\n$total")
+                tv_result.append("\n${num}% = $perc\n${total}")
                 num = total
                 tv_input.text = num
                 isEqual = true
@@ -90,7 +83,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         btnEqual.setOnClickListener {
-            if(!isEqual && tv_input.text.last() != ' '){
+            if(!isEqual && num.last() != ' '){
               showResult()
             }
             //update GrossTotal value
@@ -106,7 +99,6 @@ class MainActivity : AppCompatActivity() {
                 text = text.dropLast(1)
             }
             if(text.isEmpty() || text.contains('=')){
-//                tv_input.text = "0"
                 text = "0"
                 result = 0.0
                 isEqual = true
@@ -148,8 +140,6 @@ class MainActivity : AppCompatActivity() {
     private fun showResult() {
         calculateExp()
         tv_result.append("\n"+num)
-//        tv_result.append("\n"+tv_input.text)
-//        total = "= ${result.format()}"
 
         num = "= ${result.format()}"
         total = num
@@ -180,7 +170,7 @@ class MainActivity : AppCompatActivity() {
         val sign = if(isAdd) "+" else "-"
 
         val showDisp = "$sign GST $i% = ${gstAmt.format()}\nCGST $cGstRate% = $cGstAmt\n" +
-                "SGST $cGstRate% = $cGstAmt\n$netPrice"
+                "SGST $cGstRate% = $cGstAmt\n${netPrice}"
         tv_result.append("\n$showDisp")
         num = netPrice
         tv_input.text = num
@@ -200,46 +190,32 @@ class MainActivity : AppCompatActivity() {
 
     private fun inputValue(input: String, isNum: Boolean){
         if(isNum) {
-//            if(tv_input.text.toString() == "0" || tv_input.text.contains('=')) {
             if(num == "0" || num.contains('=')) {
                 num = input
-//                tv_input.text = input
             }else {
-//                val newNum = tv_input.text.toString()+input
                 num += input
-//                tv_input.append(input)
-//                tv_input.text = String.format("%.2f", newNum)
             }
         }else {
             dotEnabled = false
-//            if(tv_input.text.last().isWhitespace()){
                 if(num.last().isWhitespace()){
                 num = input
-//                tv_input.text = input
-//                isEqual = true
                 return
             }
             if(tv_result.text.isEmpty()) {
                 tv_result.text = num
 
                 result = num.toDouble()
-//                tv_result.text = tv_input.text
-//                result = tv_input.text.toString().toDouble()
             }else if(isEqual && tv_input.text.first().isDigit()){
                 tv_result.append("\n\n"+num)
                 result = num.toDouble()
 
-//                tv_result.append("\n\n"+tv_input.text)
-//                result = tv_input.text.toString().toDouble()
             } else {
                 calculateExp()
                 if(!isEqual){
                     tv_result.append("\n"+num)
-//                    tv_result.append("\n"+tv_input.text)
                 }
             }
             num = input
-//            tv_input.text = input
             isEqual = false
         }
         tv_input.text = num
@@ -247,16 +223,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun calculateExp() {
         val exp = num.split(" ")
-//        val exp = tv_input.text.split(" ")
         when(exp[0]){
             "+" -> result += exp[1].toDouble()
             "-" -> result -= exp[1].toDouble()
             "×" -> result *= exp[1].toDouble()
             "÷" -> result /= exp[1].toDouble()
         }
-    }
-    private fun getResult(res: Double): CharSequence? {
-        return NumberFormat.getCurrencyInstance(Locale("en", "IN")).format(res);
     }
 
     private fun Double.format(digits: Int = 2) = java.lang.String.format("%.${digits}f", this)
