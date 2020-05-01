@@ -5,7 +5,9 @@ import android.text.method.ScrollingMovementMethod
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.bottom_sheet.*
 import java.text.DecimalFormat
 
 
@@ -26,6 +28,9 @@ class MainActivity : AppCompatActivity() {
         listAdapter = InputListAdapter(this, R.layout.item_view, dataSet)
         tv_result.adapter = listAdapter
         reset()
+
+        val appVer = "v"+BuildConfig.VERSION_NAME
+        tv_version.text = appVer
         //Numbers
         btnOne.setOnClickListener { inputValue("1", true) }
         btnTwo.setOnClickListener { inputValue("2", true) }
@@ -107,7 +112,19 @@ class MainActivity : AppCompatActivity() {
             num = text
             tv_input.text = num.getFormat()
         }
+
+        btn_more.setOnClickListener {
+            val dialog = BottomSheetDialog(this)
+            val view = layoutInflater.inflate(R.layout.bottom_sheet, null)
+            dialog.setContentView(view)
+            dialog.show()
+        }
+        btn_copy.setOnClickListener {  }
+        btn_send.setOnClickListener {  }
+        btn_share.setOnClickListener {  }
+        btn_rate.setOnClickListener {  }
     }
+
 
     fun gstButton(view: View) {
         val text = num

@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Calculator</string>
+    <string name="share_app">Share App</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="brand_name">By mendtrix.com</string>
 </resources>

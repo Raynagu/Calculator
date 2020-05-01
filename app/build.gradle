@@ -2,16 +2,22 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+ext.versionMajor = 1
+ext.versionMinor = 0
+ext.versionPatch = 0
+ext.versionClassifier = null
+ext.isSnapshot = false
+ext.minimumSdkVersion = 21
+
 android {
     compileSdkVersion 29
-
 
     defaultConfig {
         applicationId "com.mendtrix.calculator"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode generateVersionCode()
+        versionName generateVersionName()
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -24,7 +30,23 @@ android {
     }
 
 }
+private Integer generateVersionCode() {
 
+    return ext.minimumSdkVersion * 10000000 + ext.versionMajor * 10000 + ext.versionMinor * 100 + ext.versionPatch
+
+}
+
+private String generateVersionName() {
+    String versionName = "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
+    if (ext.versionClassifier == null && ext.isSnapshot) {
+        ext.versionClassifier = "SNAPSHOT"
+    }
+
+    if (ext.versionClassifier != null) {
+        versionName += "-" + ext.versionClassifier
+    }
+    return versionName;
+}
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
