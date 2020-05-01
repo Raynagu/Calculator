@@ -1,24 +1,21 @@
 package com.mendtrix.calculator
 
-import android.R.attr.*
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
-import android.view.Gravity
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.isDigitsOnly
 import kotlinx.android.synthetic.main.activity_main.*
-import java.text.NumberFormat
-import java.util.*
+import java.text.DecimalFormat
 
 
 class MainActivity : AppCompatActivity() {
 
-    var dotEnabled = false
     var isEqual = true
     var result = 0.0
     var num = "0"
     var total = ""
+    var df: DecimalFormat = DecimalFormat("##,##,###.#######")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -44,8 +41,7 @@ class MainActivity : AppCompatActivity() {
         }
         btnPoint.setOnClickListener {
             val text = num
-            if(!dotEnabled) {
-                dotEnabled = true
+            if(!text.contains('.')) {
                 if(text != "0" && text.last().isDigit() && !text.contains('='))
                     inputValue(".", true)
                 else
@@ -75,11 +71,10 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 total = "= ${result.format()}"
-                tv_result.append("\n${num}% = $perc\n${total}")
+                tv_result.append("\n${num.getFormat()}% = ${perc.format().getFormat()}\n${total.getFormat()}")
                 num = total
-                tv_input.text = num
+                tv_input.text = num.getFormat()
                 isEqual = true
-                dotEnabled = false
             }
         }
         btnEqual.setOnClickListener {
@@ -103,11 +98,8 @@ class MainActivity : AppCompatActivity() {
                 result = 0.0
                 isEqual = true
             }
-            if('.' !in tv_input.text){
-                dotEnabled = false
-            }
             num = text
-            tv_input.text = num
+            tv_input.text = num.getFormat()
         }
     }
 
@@ -120,7 +112,7 @@ class MainActivity : AppCompatActivity() {
                 if(text.isNotEmpty() && text.first().isDigit()){
                     tv_result.append("\n")
                 }
-                tv_result.append("\n"+text)
+                tv_result.append("\n"+text.getFormat())
             }
             when(view.id){
                 R.id.btnGst3 -> calculateGST(3)
@@ -139,14 +131,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun showResult() {
         calculateExp()
-        tv_result.append("\n"+num)
+        tv_result.append("\n"+num.getFormat())
 
         num = "= ${result.format()}"
-        total = num
+        total = num.getFormat()
         tv_result.append("\n$total")
-        tv_input.text = num
+        tv_input.text = num.getFormat()
         isEqual = true
-        dotEnabled = false
     }
 
     private fun calculateGST(i: Int, isAdd: Boolean = true) {
@@ -166,17 +157,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         val cGstRate = i.toDouble()/2
-        val cGstAmt = (gstAmt/2).format()
+        val cGstAmt = (gstAmt/2).format().getFormat()
         val sign = if(isAdd) "+" else "-"
 
-        val showDisp = "$sign GST $i% = ${gstAmt.format()}\nCGST $cGstRate% = $cGstAmt\n" +
-                "SGST $cGstRate% = $cGstAmt\n${netPrice}"
+        val showDisp = "$sign GST $i% = ${gstAmt.format().getFormat()}\nCGST $cGstRate% = $cGstAmt\n" +
+                "SGST $cGstRate% = $cGstAmt\n${netPrice.getFormat()}"
         tv_result.append("\n$showDisp")
         num = netPrice
-        tv_input.text = num
+        tv_input.text = num.getFormat()
         result = netPrice.split(' ')[1].toDouble()
         isEqual = true
-        dotEnabled = false
     }
 
     private fun reset() {
@@ -185,7 +175,6 @@ class MainActivity : AppCompatActivity() {
         num = "0"
         result = 0.0
         isEqual = true
-        dotEnabled = false
     }
 
     private fun inputValue(input: String, isNum: Boolean){
@@ -195,30 +184,30 @@ class MainActivity : AppCompatActivity() {
             }else {
                 num += input
             }
+            tv_input.text = num.getFormat()
         }else {
-            dotEnabled = false
-                if(num.last().isWhitespace()){
+            if(num.last().isWhitespace()){
                 num = input
+                tv_input.text = num
                 return
             }
             if(tv_result.text.isEmpty()) {
-                tv_result.text = num
-
+                tv_result.text = num.getFormat()
                 result = num.toDouble()
             }else if(isEqual && tv_input.text.first().isDigit()){
-                tv_result.append("\n\n"+num)
+                tv_result.append("\n\n"+num.getFormat())
                 result = num.toDouble()
 
             } else {
                 calculateExp()
                 if(!isEqual){
-                    tv_result.append("\n"+num)
+                    tv_result.append("\n"+num.getFormat())
                 }
             }
             num = input
+            tv_input.text = num
             isEqual = false
         }
-        tv_input.text = num
     }
 
     private fun calculateExp() {
@@ -230,8 +219,17 @@ class MainActivity : AppCompatActivity() {
             "÷" -> result /= exp[1].toDouble()
         }
     }
-
     private fun Double.format(digits: Int = 2) = java.lang.String.format("%.${digits}f", this)
 
+    private fun String.getFormat(): String {
+        return if(contains(' ') && last().isDigit()){
+            val arr = split(' ')
+            "${arr[0]} "+ df.format(arr[1].toDouble())
+        }else if(last().isDigit()){
+            df.format(this.toDouble())
+        }else{
+            this
+        }
+    }
 }
 

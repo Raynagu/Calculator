@@ -82,23 +82,23 @@
             android:gravity="center"
             android:orientation="horizontal">
             <TextView
-                android:id="@+id/btnGst-3"
+                android:id="@+id/btnGst_3"
                 android:text="-3%"
                 style="@style/GstBtnStyle"/>
             <TextView
-                android:id="@+id/btnGst-5"
+                android:id="@+id/btnGst_5"
                 android:text="-5%"
                 style="@style/GstBtnStyle"/>
             <TextView
-                android:id="@+id/btnGst-12"
+                android:id="@+id/btnGst_12"
                 android:text="-12%"
                 style="@style/GstBtnStyle"/>
             <TextView
-                android:id="@+id/btnGst-18"
+                android:id="@+id/btnGst_18"
                 android:text="-18%"
                 style="@style/GstBtnStyle"/>
             <TextView
-                android:id="@+id/btnGst-28"
+                android:id="@+id/btnGst_28"
                 android:text="-28%"
                 style="@style/GstBtnStyle"/>
         </LinearLayout>
