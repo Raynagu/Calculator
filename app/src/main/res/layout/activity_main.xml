@@ -20,8 +20,9 @@
         <ListView
             android:id="@+id/tv_result"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_marginBottom="4dp"
+            android:paddingTop="10dp"
             android:divider="@null"
             android:dividerHeight="0dp"
             android:listSelector="@android:color/transparent"
@@ -80,8 +81,8 @@
     <LinearLayout
         android:id="@+id/keyboardLayout"
         android:layout_width="match_parent"
-        android:layout_height="330dp"
-        android:background="#DFDFDF"
+        android:layout_height="350dp"
+        android:background="#D2E4E4E4"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="5dp"
@@ -220,7 +221,8 @@
                 android:id="@+id/btnClear"
                 style="@style/OperatorBtnStyle"
                 android:text="AC"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textColor="@color/colorPrimaryDark"
+                android:fontFamily="@font/rajdhani_bold"/>
         </LinearLayout>
 
         <LinearLayout
