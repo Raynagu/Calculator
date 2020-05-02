@@ -1,4 +1,4 @@
-package com.mendtrix.calculator
+package com.mendtrix.gstcalculator
 
 import android.content.Context
 import android.view.LayoutInflater

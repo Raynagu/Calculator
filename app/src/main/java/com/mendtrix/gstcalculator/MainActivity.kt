@@ -1,20 +1,23 @@
-package com.mendtrix.calculator
+package com.mendtrix.gstcalculator
 
+import android.content.*
+import android.net.Uri
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
 import android.view.View
-import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.bottom_sheet.*
+import kotlinx.android.synthetic.main.bottom_sheet.view.*
+import java.net.URI
 import java.text.DecimalFormat
-
 
 class MainActivity : AppCompatActivity() {
 
     var isEqual = true
     var result = 0.0
+    var shareResult = ""
     var num = "0"
     var total = ""
     var df: DecimalFormat = DecimalFormat("##,##,###.#######")
@@ -25,12 +28,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        listAdapter = InputListAdapter(this, R.layout.item_view, dataSet)
+        listAdapter = InputListAdapter(
+            this,
+            R.layout.item_view,
+            dataSet
+        )
         tv_result.adapter = listAdapter
         reset()
-
-        val appVer = "v"+BuildConfig.VERSION_NAME
-        tv_version.text = appVer
         //Numbers
         btnOne.setOnClickListener { inputValue("1", true) }
         btnTwo.setOnClickListener { inputValue("2", true) }
@@ -118,11 +122,37 @@ class MainActivity : AppCompatActivity() {
             val view = layoutInflater.inflate(R.layout.bottom_sheet, null)
             dialog.setContentView(view)
             dialog.show()
+            val version = "v" + BuildConfig.VERSION_NAME
+            view.tv_version.text = version
+            view.btn_share.setOnClickListener {
+                val shareData = getString(R.string.app_description) +" "+ getString(R.string.app_url)
+               share(shareData)
+            }
+            view.btn_rate.setOnClickListener {
+                val uri = Uri.parse("market://details?id=com.mendtrix.gstcalculator")
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, uri))
+                }catch (e:ActivityNotFoundException){
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.app_url))))
+                }
+            }
         }
-        btn_copy.setOnClickListener {  }
-        btn_send.setOnClickListener {  }
-        btn_share.setOnClickListener {  }
-        btn_rate.setOnClickListener {  }
+        btn_copy.setOnClickListener {
+            val clipBoard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            clipBoard.setPrimaryClip(ClipData.newPlainText("Calculations", shareResult+"\nDownload GST Calculator app "+getString(R.string.app_url)))
+
+            Toast.makeText(this, "Copied to clipboard.", Toast.LENGTH_SHORT).show()
+        }
+        btn_send.setOnClickListener { share(shareResult+"\nDownload GST Calculator app "+getString(R.string.app_url))}
+    }
+
+    private fun share(data: String) {
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, data)
+            type = "text/plain"
+        }
+        startActivity(Intent.createChooser(sendIntent, "Share via:"))
     }
 
 
@@ -198,6 +228,7 @@ class MainActivity : AppCompatActivity() {
         dataSet.clear()
         listAdapter.notifyDataSetChanged()
         tv_input.text = "0"
+        shareResult = ""
         num = "0"
         result = 0.0
         isEqual = true
@@ -205,7 +236,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun inputValue(input: String, isNum: Boolean) {
         if (isNum) {
-            if(num.length > 14){
+            if (num.length > 14) {
                 return
             }
             if (num == "0" || num.contains('=')) {
@@ -225,6 +256,7 @@ class MainActivity : AppCompatActivity() {
                 result = num.toDouble()
             } else if (isEqual && num.first().isDigit()) {
                 addItem("\n" + num.getFormat())
+                shareResult = num.getFormat()
                 result = num.toDouble()
 
             } else {
@@ -241,6 +273,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun addItem(item: String) {
         listAdapter.add(item)
+        shareResult +="\n"+item
     }
 
     private fun calculateExp() {

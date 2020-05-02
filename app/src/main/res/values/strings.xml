@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">Calculator</string>
-    <string name="share_app">Share App</string>
-    <string name="rate_us">Rate Us</string>
+    <string name="app_name">GST Calculator</string>
+    <string name="btn_share_app">Share App</string>
+    <string name="btn_rate_us">Rate Us</string>
     <string name="brand_name">By mendtrix.com</string>
+    <string name="app_url">https://play.google.com/store/apps/details?id=com.mendtrix.gstcalculator</string>
+    <string name="app_description">Hey, Here is the awesome calculator with GST slabs. Its handy and useful. Try it out.</string>
 </resources>
