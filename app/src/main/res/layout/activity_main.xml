@@ -80,7 +80,7 @@
     <LinearLayout
         android:id="@+id/keyboardLayout"
         android:layout_width="match_parent"
-        android:layout_height="315dp"
+        android:layout_height="330dp"
         android:background="#DFDFDF"
         android:gravity="center"
         android:orientation="vertical"
