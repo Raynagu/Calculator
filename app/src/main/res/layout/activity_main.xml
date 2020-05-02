@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,20 +11,23 @@
     <LinearLayout
         android:id="@+id/displayLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/border_bottom"
         android:orientation="vertical"
-        android:background="@drawable/border_bottom">
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/keyboardLayout">
 
         <ListView
             android:id="@+id/tv_result"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="match_parent"
             android:layout_marginBottom="4dp"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:listSelector="@android:color/transparent"
             android:scrollbars="none"
             android:transcriptMode="alwaysScroll"
-            android:listSelector="@android:color/transparent"
-            android:divider="@null"
-            android:dividerHeight="0dp"/>
+            android:layout_weight="1"/>
 
         <TextView
             android:id="@+id/tv_input"
@@ -39,216 +42,257 @@
             android:text="0"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:background="@drawable/border_bottom" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
             <ImageView
                 android:id="@+id/btn_copy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_content_copy"
+                android:layout_weight="1"
                 android:padding="5dp"
-                android:layout_weight="1"/>
+                android:src="@drawable/ic_content_copy" />
+
             <ImageView
                 android:id="@+id/btn_send"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_share"
+                android:layout_weight="1"
                 android:padding="5dp"
-                android:layout_weight="1"/>
+                android:src="@drawable/ic_share" />
+
             <ImageView
                 android:id="@+id/btn_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_more_horiz"
+                android:layout_weight="1"
                 android:padding="5dp"
-                android:layout_weight="1"/>
+                android:src="@drawable/ic_more_horiz" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/keyboardLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="315dp"
+        android:background="#DFDFDF"
         android:gravity="center"
+        android:orientation="vertical"
         android:padding="5dp"
-        android:background="#DFDFDF">
+        android:layout_alignParentBottom="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/btnGst3"
-                android:text="+3%"
-                style="@style/GstBtnStyle"/>
+                style="@style/GstBtnStyle"
+                android:text="+3%" />
+
             <TextView
                 android:id="@+id/btnGst5"
-                android:text="+5%"
-                style="@style/GstBtnStyle"/>
+                style="@style/GstBtnStyle"
+                android:text="+5%" />
+
             <TextView
                 android:id="@+id/btnGst12"
-                android:text="+12%"
-                style="@style/GstBtnStyle"/>
+                style="@style/GstBtnStyle"
+                android:text="+12%" />
+
             <TextView
                 android:id="@+id/btnGst18"
-                android:text="+18%"
-                style="@style/GstBtnStyle"/>
+                style="@style/GstBtnStyle"
+                android:text="+18%" />
+
             <TextView
                 android:id="@+id/btnGst28"
-                android:text="+28%"
-                style="@style/GstBtnStyle"/>
+                style="@style/GstBtnStyle"
+                android:text="+28%" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/btnGst_3"
-                android:text="-3%"
-                style="@style/GstBtnStyle"/>
+                style="@style/GstBtnStyle"
+                android:text="-3%" />
+
             <TextView
                 android:id="@+id/btnGst_5"
-                android:text="-5%"
-                style="@style/GstBtnStyle"/>
+                style="@style/GstBtnStyle"
+                android:text="-5%" />
+
             <TextView
                 android:id="@+id/btnGst_12"
-                android:text="-12%"
-                style="@style/GstBtnStyle"/>
+                style="@style/GstBtnStyle"
+                android:text="-12%" />
+
             <TextView
                 android:id="@+id/btnGst_18"
-                android:text="-18%"
-                style="@style/GstBtnStyle"/>
+                style="@style/GstBtnStyle"
+                android:text="-18%" />
+
             <TextView
                 android:id="@+id/btnGst_28"
-                android:text="-28%"
-                style="@style/GstBtnStyle"/>
+                style="@style/GstBtnStyle"
+                android:text="-28%" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/btnSeven"
-                android:text="7"
-                style="@style/NumberBtnStyle"/>
+                style="@style/NumberBtnStyle"
+                android:text="7" />
+
             <TextView
                 android:id="@+id/btnEight"
-                android:text="8"
-                style="@style/NumberBtnStyle"/>
+                style="@style/NumberBtnStyle"
+                android:text="8" />
+
             <TextView
                 android:id="@+id/btnNine"
-                android:text="9"
-                style="@style/NumberBtnStyle"/>
+                style="@style/NumberBtnStyle"
+                android:text="9" />
+
             <ImageView
                 android:id="@+id/btnDivide"
                 style="@style/OperatorBtnStyle"
-                android:src="@drawable/ic_divide"
-                android:scaleType="center"/>
+                android:scaleType="center"
+                android:src="@drawable/ic_divide" />
+
             <ImageView
                 android:id="@+id/btnRemove"
                 style="@style/OperatorBtnStyle"
-                android:src="@drawable/ic_backspace_white"
-                android:scaleType="center"/>
+                android:scaleType="center"
+                android:src="@drawable/ic_backspace_white" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/btnFour"
-                android:text="4"
-                style="@style/NumberBtnStyle"/>
+                style="@style/NumberBtnStyle"
+                android:text="4" />
+
             <TextView
                 android:id="@+id/btnFive"
-                android:text="5"
-                style="@style/NumberBtnStyle"/>
+                style="@style/NumberBtnStyle"
+                android:text="5" />
+
             <TextView
                 android:id="@+id/btnSix"
-                android:text="6"
-                style="@style/NumberBtnStyle"/>
+                style="@style/NumberBtnStyle"
+                android:text="6" />
+
             <ImageView
                 android:id="@+id/btnMultiply"
                 style="@style/OperatorBtnStyle"
-                android:src="@drawable/ic_multiply"
-                android:scaleType="center"/>
+                android:scaleType="center"
+                android:src="@drawable/ic_multiply" />
+
             <TextView
                 android:id="@+id/btnClear"
-                android:text="AC"
                 style="@style/OperatorBtnStyle"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:text="AC"
+                android:textColor="@color/colorPrimaryDark" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/btnOne"
-                android:text="1"
-                style="@style/NumberBtnStyle"/>
+                style="@style/NumberBtnStyle"
+                android:text="1" />
+
             <TextView
                 android:id="@+id/btnTwo"
-                android:text="2"
-                style="@style/NumberBtnStyle"/>
+                style="@style/NumberBtnStyle"
+                android:text="2" />
+
             <TextView
                 android:id="@+id/btnThree"
-                android:text="3"
-                style="@style/NumberBtnStyle"/>
+                style="@style/NumberBtnStyle"
+                android:text="3" />
+
             <ImageView
                 android:id="@+id/btnSubtract"
                 style="@style/OperatorBtnStyle"
-                android:src="@drawable/ic_minus"
-                android:scaleType="center"/>
+                android:scaleType="center"
+                android:src="@drawable/ic_minus" />
+
             <TextView
                 android:id="@+id/btnPercentage"
-                android:text="%"
                 style="@style/OperatorBtnStyle"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:text="%"
+                android:textColor="@color/colorPrimaryDark" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/btnZero"
-                android:text="0"
-                style="@style/NumberBtnStyle"/>
+                style="@style/NumberBtnStyle"
+                android:text="0" />
+
             <TextView
                 android:id="@+id/btnDoubleZero"
-                android:text="00"
-                style="@style/NumberBtnStyle"/>
+                style="@style/NumberBtnStyle"
+                android:text="00" />
+
             <TextView
                 android:id="@+id/btnPoint"
-                android:text="."
-                style="@style/NumberBtnStyle"/>
+                style="@style/NumberBtnStyle"
+                android:text="." />
+
             <ImageView
                 android:id="@+id/btnAdd"
                 style="@style/OperatorBtnStyle"
-                android:src="@drawable/ic_plus"
-                android:scaleType="center"/>
+                android:scaleType="center"
+                android:src="@drawable/ic_plus" />
+
             <ImageView
                 android:id="@+id/btnEqual"
                 style="@style/OperatorBtnStyle"
                 android:background="@drawable/btn_result_bg"
-                android:src="@drawable/ic_equal"
                 android:scaleType="center"
-                android:tint="#FFF"/>
+                android:src="@drawable/ic_equal"
+                android:tint="#FFF" />
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
