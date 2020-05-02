@@ -164,6 +164,7 @@ class MainActivity : AppCompatActivity() {
             } else if (!text.contains('=')) {
                 if (text.isNotEmpty() && text.first().isDigit()) {
                     addItem(" ")
+                    shareResult = ""
                 }
                 addItem(text.getFormat())
             }
